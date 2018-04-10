@@ -11,6 +11,7 @@
 #include "main.h"
 
 GPIO_InitTypeDef  GPIO_InitStruct;
+UART_HandleTypeDef hlpuart1;
 
 void Init();
 

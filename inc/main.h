@@ -45,8 +45,23 @@
 #include "diag/Trace.h"
 
 /* Private define ------------------------------------------------------------*/
+#define CS_1_Pin GPIO_PIN_1
+#define CS_1_GPIO_Port GPIOA
+
+#define VBAT_2_Pin GPIO_PIN_3
+#define VBAT_2_GPIO_Port GPIOA
+
 #define CS_3_Pin GPIO_PIN_4
 #define CS_3_GPIO_Port GPIOA
+
+#define EN_INNO_Pin GPIO_PIN_1
+#define EN_INNO_GPIO_Port GPIOB
+
+#define CS_2_Pin GPIO_PIN_9
+#define CS_2_GPIO_Port GPIOA
+
+#define CMD_BAT_Pin GPIO_PIN_10
+#define CMD_BAT_GPIO_Port GPIOA
 
 #endif /* __MAIN_H */
 
