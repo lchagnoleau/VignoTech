@@ -3,24 +3,34 @@
 
 int main(void)
 {
-  char *msg = "Hello World!\n\r";
-
   HAL_Init();
   Init();
-  int i = 0;
 
-  HAL_GPIO_WritePin(EN_INNO_GPIO_Port, EN_INNO_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(CMD_BAT_GPIO_Port, CMD_BAT_Pin, GPIO_PIN_SET);
-
+  uint8_t GPS_buffer[100] = {0};
+  uint8_t GPS_cmp = 0;
   uint8_t c = 0;
+  HAL_StatusTypeDef rx_status;
 
   while (1)
   {
-      while(c == 0)
-        HAL_UART_Receive(&hlpuart1, &c, 1, 0);
-      trace_printf("\nBuffer = %c", c);
-//    trace_printf("i = %d\n", i);
-//    for(int h=0; h<5000000; h++);
-//    i++;
+      while(c != '$')
+        {
+          rx_status = HAL_UART_Receive(&hlpuart1, &c, 1, 10);
+          if(rx_status != HAL_OK)
+            trace_printf("\nrx_status = 02X", rx_status);
+        }
+      GPS_buffer[GPS_cmp++] = c;
+      while(c != '\n')
+        {
+          rx_status = HAL_UART_Receive(&hlpuart1, &c, 1, 10);
+          if(rx_status != HAL_OK)
+            trace_printf("\nrx_status = 02X", rx_status);
+          GPS_buffer[GPS_cmp++] = c;
+        }
+      GPS_cmp = 0;
+      c = 0;
+
+      for(uint8_t i=0; GPS_buffer[i] != '\n'; i++)
+        trace_printf("%c", GPS_buffer[i]);
   }
 }
