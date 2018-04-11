@@ -42,6 +42,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l0xx_hal.h"
 #include "init.h"
+#include "gps.h"
 #include "diag/Trace.h"
 
 /* Private define ------------------------------------------------------------*/
@@ -62,6 +63,10 @@
 
 #define CMD_BAT_Pin GPIO_PIN_10
 #define CMD_BAT_GPIO_Port GPIOA
+
+extern uint8_t GPS_GGA[];
+extern uint8_t GPS_VTG[];
+extern uint8_t frame_ready;
 
 #endif /* __MAIN_H */
 
