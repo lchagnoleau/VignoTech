@@ -33,7 +33,6 @@ static void MX_LPUART1_UART_Init(void)
   hlpuart1.Init.Mode = UART_MODE_TX_RX;
   hlpuart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
   HAL_UART_Init(&hlpuart1);
-  HAL_UART_MspInit(&hlpuart1);
 
 }
 
@@ -50,8 +49,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     */
     GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_2;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF6_LPUART1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   }
@@ -70,7 +69,7 @@ static void GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, CS_1_Pin|CS_3_Pin|CS_2_Pin|CMD_BAT_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(EN_INNO_GPIO_Port, EN_INNO_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(EN_INNO_GPIO_Port, EN_INNO_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : CS_1_Pin CS_3_Pin CS_2_Pin CMD_BAT_Pin */
   GPIO_InitStruct.Pin = CS_1_Pin|CS_3_Pin|CS_2_Pin|CMD_BAT_Pin;
